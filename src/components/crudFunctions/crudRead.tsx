@@ -10,9 +10,11 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import ToggleButtons from "../toggleButtons";
 
 export default function CrudRead() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [alignment, setAlignment] = useState("food");
 
   return (
     <Container>
@@ -24,10 +26,15 @@ export default function CrudRead() {
           }}
       >
       <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Search</Typography>
+      <ToggleButtons
+        alignment={alignment}
+        setAlignment={setAlignment}
+      />
       <TextField
         label="Search ID"
         value={searchQuery}
         onChange={()=>{}}
+        sx={{ my: 2}}
       />
       <Table>
         <TableHead>

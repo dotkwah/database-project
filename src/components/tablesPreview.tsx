@@ -21,7 +21,7 @@ import {
 
 export default function TablesPreview() {
 	return (
-		<Box sx={{ p: 2, mx: 2, width: 1, backgroundColor: "#919191", borderRadius: 2, overflowY: "scroll", maxHeight: "90vh" }}>
+		<Box sx={{ p: 2, mx: 2, width: 1, backgroundColor: "#919191", borderRadius: 2, overflowY: "scroll", maxHeight: "95vh" }}>
             <Typography sx={{ my: 2, fontWeight: "bold" }} align="center" variant="h4">
                 Live Tables Preview
             </Typography>

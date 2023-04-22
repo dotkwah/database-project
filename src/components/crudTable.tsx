@@ -15,7 +15,7 @@ export default function CrudTable() {
     const [selection, setSelection] = useState("create");
 
 	return (
-		<Box sx={{ p: 2, width: 1, backgroundColor: "#5c5c5c", borderRadius: 2, overflowY: "scroll", maxHeight: "90vh"}}>
+		<Box sx={{ p: 2, width: 1, backgroundColor: "#5c5c5c", borderRadius: 2, overflowY: "scroll", maxHeight: "95vh"}}>
             <Typography sx={{ my: 2, fontWeight: "bold" }} align="center" variant="h4">
                 CRUD Functions Preview
             </Typography>

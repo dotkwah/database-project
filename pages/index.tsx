@@ -1,5 +1,10 @@
 import Head from "next/head";
-import { Button } from '@mui/material'
+import { 
+  Stack,
+  Box,
+} from '@mui/material'
+import TablesPreview from "@/components/tablesPreview";
+import CrudTable from "@/components/crudTable";
 
 export default function Home() {
 	return (
@@ -10,8 +15,12 @@ export default function Home() {
 			</Head>
 
 			<main>
-        <Button>Test</Button>
-
+        <Box sx={{ p: 2, width: 1 }}>
+          <Stack direction={"row"} sx={{ width: 1}}>
+            <CrudTable />
+            <TablesPreview />
+          </Stack>
+        </Box>
 			</main>
 		</div>
 	);

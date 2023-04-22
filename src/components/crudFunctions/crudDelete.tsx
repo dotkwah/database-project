@@ -12,7 +12,6 @@ import ToggleButtons from "../toggleButtons";
 export default function CrudDelete() {
   const [alignment, setAlignment] = useState('food');
 
-
   return (
     <Container>
       <Box

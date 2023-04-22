@@ -8,6 +8,7 @@ import {
   TableRow,
   Container,
   Box,
+  Typography,
 } from "@mui/material";
 
 export default function CrudRead() {
@@ -22,8 +23,9 @@ export default function CrudRead() {
           padding: 3,
           }}
       >
+      <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Search</Typography>
       <TextField
-        label="Search"
+        label="Search ID"
         value={searchQuery}
         onChange={()=>{}}
       />

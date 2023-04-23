@@ -2,8 +2,14 @@
 
 ## Setup DB
 
+For Mac/Linux,
 In the root directory, following the Dockerfile.example create a Dockerfile (Just Dockerfile no extension). Then run the command:
 `sh scripts/setup-db.sh`
+
+For Windows,
+In the root directory, following the Dockerfile.example create a Dockerfile (Just Dockerfile no extension). Then run the command:
+`docker build -t dbproject .`
+`docker run -d --name dbproject-container -e POSTGRES_DB=<db_name> -e POSTGRES_PASSWORD=<pass> -e POSTGRES_USER=<user> -p "5432:5432" dbproject`
 
 This will create a Docker container with a Postgres image and serve as your local database.
 
@@ -35,5 +41,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 | Command                 | Description |
 |-------------------------|-------------|
-| `sh scripts/setup-db.sh` | Build DB docker container |
+| `sh scripts/setup-db.sh` | Build DB docker container for Mac/Linux |
 | `npm run dev`                   | Run the server |

@@ -4,6 +4,29 @@ import { useState } from "react";
 
 export default function CrudCreate() {
   const [alignment, setAlignment] = useState('food');
+  const [name, setName] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+
+  async function createItems() {
+    if (alignment == "food") {
+      const data = await fetch('/api/createFoods', {
+        method: 'POST',
+        body: JSON.stringify({name, desc, price}),
+      });
+      setName("")
+      setDesc("")
+      setPrice(0)
+    } else if (alignment == "drink"){
+      const data = await fetch('/api/createDrinks', {
+        method: 'POST',
+        body: JSON.stringify({name, desc, price}),
+      });
+      setName("")
+      setDesc("")
+      setPrice(0)
+    }
+  }
 
   return (
     <Container>
@@ -24,9 +47,11 @@ export default function CrudCreate() {
             </Grid>
               <Grid item xs={12}>
               <TextField
-                  id={alignment == 'food' ? "food" : "drink"}
-                  name={alignment == 'food' ? "food" : "drink"}
-                  label={alignment == 'food' ? "Food Name" : "Drink Name"}
+                  id={"name"}
+                  name={"name"}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  label={alignment == "food" ? "Food Name" : "Drink Name"}
                   fullWidth
               />
               </Grid>
@@ -34,6 +59,8 @@ export default function CrudCreate() {
               <TextField
                   id="description"
                   name="description"
+                  value={desc}
+                  onChange={(e) => setDesc(e.target.value)}
                   label="Description"
                   fullWidth
               />
@@ -42,7 +69,10 @@ export default function CrudCreate() {
               <OutlinedInput
                   id="price"
                   name="price"
+                  value={price}
+                  onChange={(e) => setPrice(Number(e.target.value))}
                   fullWidth
+                  defaultValue={0}
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
               />
               </Grid>
@@ -52,6 +82,7 @@ export default function CrudCreate() {
                   variant="contained"
                   color="primary"
                   sx={{my: 2}}
+                  onClick={createItems}
               >
                   {"Create"}
               </Button>

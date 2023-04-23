@@ -41,5 +41,6 @@ model Order {
   id        Int      @id @default(autoincrement())
   customer  String
   orderItem OrderItem[]
-  orderAt DateTime @default(now())
+  orderAt   DateTime @default(now())
+  price     Decimal
 }

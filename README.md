@@ -1,3 +1,15 @@
+# database-project
+
+## Member Info
+
+ - Ethan Wells - EthanMW2000
+ - Khoa Dinh - dotkwah
+ - Justin Buresh - jburesh98
+
+## Video Link
+
+[Youtube Video]()
+
 ## Getting Started
 
 ## Setup DB

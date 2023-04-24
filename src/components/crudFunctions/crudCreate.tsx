@@ -10,7 +10,7 @@ export default function CrudCreate() {
 
   async function createItems() {
     if (alignment == "food") {
-      const data = await fetch('/api/createFoods', {
+      const data = await fetch('/api/foods', {
         method: 'POST',
         body: JSON.stringify({name, desc, price}),
       });
@@ -18,7 +18,7 @@ export default function CrudCreate() {
       setDesc("")
       setPrice(0)
     } else if (alignment == "drink"){
-      const data = await fetch('/api/createDrinks', {
+      const data = await fetch('/api/drinks', {
         method: 'POST',
         body: JSON.stringify({name, desc, price}),
       });

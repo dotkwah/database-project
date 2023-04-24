@@ -14,33 +14,37 @@ model Food {
   id        Int      @id @default(autoincrement())
   name      String
   desc      String
+  isGluten  Boolean
   price     Decimal
-  order     OrderItem[]
+  order     Order[]
 }
 
 model Drink {
   id        Int      @id @default(autoincrement())
   name      String
   desc      String
+  size      String
   price     Decimal
-  order     OrderItem[]
+  order     Order[]
 }
 
-model OrderItem {
+model Sides {
   id        Int      @id @default(autoincrement())
-  quantity  Int
-  food      Food     @relation(fields: [foodId], references: [id])
-  foodId    Int
-  drink     Drink    @relation(fields: [drinkId], references: [id])
-  drinkId   Int
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   Int
+  name      String
+  desc      String
+  isVegan   Boolean
+  price     Decimal
+  order     Order[]
 }
 
 model Order {
   id        Int      @id @default(autoincrement())
   customer  String
-  orderItem OrderItem[]
-  orderAt   DateTime @default(now())
-  price     Decimal
+  food      Food     @relation(fields: [foodId], references: [id])
+  foodId    Int
+  drink     Drink    @relation(fields: [drinkId], references: [id])
+  drinkId   Int
+  sides     Sides    @relation(fields: [sidesId], references: [id])
+  sidesId   Int
+  orderAt DateTime @default(now())
 }

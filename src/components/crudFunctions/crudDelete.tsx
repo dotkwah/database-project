@@ -11,6 +11,21 @@ import ToggleButtons from "../toggleButtons";
 
 export default function CrudDelete() {
   const [alignment, setAlignment] = useState('food');
+  const [id, setId] = useState<number>();
+
+  async function deleteItems() {
+    if (alignment == "food") {
+      const data = await fetch('/api/foods?id=' + id, {
+        method: 'DELETE',
+      });
+      setId(0)
+    } else if (alignment == "drink"){
+      const data = await fetch('/api/drinks?id=' + id, {
+        method: 'DELETE',
+      });
+      setId(0)
+    }
+  }
 
   return (
     <Container>
@@ -34,6 +49,8 @@ export default function CrudDelete() {
                 id="id"
                 name="id"
                 label="ID"
+                value={id}
+                onChange={(e) => setId(Number(e.target.value))}
                 fullWidth
               />
             </Grid>
@@ -43,6 +60,7 @@ export default function CrudDelete() {
               variant="contained"
               color="primary"
               sx={{my: 2}}
+              onClick={deleteItems}
             >
               {"Delete"}
             </Button>

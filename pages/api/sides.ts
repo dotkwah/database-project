@@ -4,7 +4,7 @@ import { prisma } from '../../lib/prisma'
 type postProps = {
   name: string;
   desc: string;
-  size: string;
+  isVegan: boolean;
   price: number;
 }
 
@@ -16,11 +16,11 @@ export default async function handler(
       if (req.method === 'POST') {
         const post: postProps = JSON.parse(req.body);
       try {
-        const data = await prisma.drink.create({
+        const data = await prisma.sides.create({
           data: {
             name: post.name,
             desc: post.desc,
-            size: post.size,
+            isVegan: post.isVegan,
             price: post.price,
           },
         })
@@ -31,7 +31,7 @@ export default async function handler(
     } else if (req.method === 'DELETE') {
         const deleteId = Number(req.query.id);
       try {
-        const data = await prisma.drink.delete({
+        const data = await prisma.sides.delete({
           where: {
             id: deleteId,
           },
@@ -42,7 +42,7 @@ export default async function handler(
       }
     } else if (req.method === 'GET') {
       try {
-        const result = await prisma.drink.findMany();
+        const result = await prisma.sides.findMany();
         res.status(200).json(result);
         return result;
       } catch (error) {

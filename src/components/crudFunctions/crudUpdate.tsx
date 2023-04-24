@@ -23,7 +23,13 @@ export default function CrudUpdate() {
           padding: 3,
           }}
       >
-      <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Update</Typography>
+      <Typography 
+        variant="h6" 
+        sx={{ my: 2}} 
+        fontWeight={"bold"}
+      >
+        Update
+      </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <ToggleButtons

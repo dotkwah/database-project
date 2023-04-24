@@ -4,6 +4,7 @@ import { prisma } from '../../lib/prisma'
 type postProps = {
   name: string;
   desc: string;
+  isGluten: boolean;
   price: number;
 }
 
@@ -19,6 +20,7 @@ export default async function handler(
           data: {
             name: post.name,
             desc: post.desc,
+            isGluten: post.isGluten,
             price: post.price,
           },
         })
@@ -35,6 +37,14 @@ export default async function handler(
           },
         })
         res.status(200).json(data); 
+      } catch (error) {
+        res.status(500).json({ error });
+      }
+    } else if (req.method === 'GET') {
+      try {
+        const result = await prisma.food.findMany();
+        res.status(200).json(result);
+        return result;
       } catch (error) {
         res.status(500).json({ error });
       }

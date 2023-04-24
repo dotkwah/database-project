@@ -8,6 +8,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ToggleButtons from "../toggleButtons";
+import { deleteFoods } from "../../../pages/services/foods";
+import { deleteDrinks } from "../../../pages/services/drinks";
+import { deleteSides } from "../../../pages/services/sides";
 
 export default function CrudDelete() {
   const [alignment, setAlignment] = useState('food');
@@ -15,15 +18,20 @@ export default function CrudDelete() {
 
   async function deleteItems() {
     if (alignment == "food") {
-      const data = await fetch('/api/foods?id=' + id, {
-        method: 'DELETE',
-      });
-      setId(0)
+      if (id !== undefined) {
+        deleteFoods(id)
+        setId(0)
+      }
     } else if (alignment == "drink"){
-      const data = await fetch('/api/drinks?id=' + id, {
-        method: 'DELETE',
-      });
-      setId(0)
+      if (id !== undefined) {
+        deleteDrinks(id)
+        setId(0)
+      }
+    } else if (alignment == "side"){
+      if (id !== undefined) {
+        deleteSides(id)
+        setId(0)
+      }
     }
   }
 
@@ -36,7 +44,13 @@ export default function CrudDelete() {
           padding: 3,
           }}
       >
-      <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Delete</Typography>
+      <Typography 
+        variant="h6" 
+        sx={{ my: 2}} 
+        fontWeight={"bold"}
+      >
+        Delete
+      </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <ToggleButtons

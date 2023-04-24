@@ -26,7 +26,13 @@ export default function CrudRead() {
           padding: 3,
           }}
       >
-      <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Search</Typography>
+      <Typography 
+        variant="h6" 
+        sx={{ my: 2}} 
+        fontWeight={"bold"}
+      >
+        Search
+      </Typography>
         <Grid container spacing={2}>
         <Grid item xs={12}>
           <ToggleButtons

@@ -30,6 +30,7 @@ export default function ToggleButtons({
     >
       <ToggleButton value="food">Food</ToggleButton>
       <ToggleButton value="drink">Drink</ToggleButton>
+      <ToggleButton value="side">Side</ToggleButton>
     </ToggleButtonGroup>
   );
 }

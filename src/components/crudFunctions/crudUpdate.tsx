@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import ToggleButtons from "../toggleButtons";
-import { fetchFoods } from "../../../pages/services/foods";
-import { fetchDrinks } from "../../../pages/services/drinks";
-import { fetchSides } from "../../../pages/services/sides";
+import { fetchFoods, updateFoods } from "../../../pages/services/foods";
+import { fetchDrinks, updateDrinks } from "../../../pages/services/drinks";
+import { fetchSides, updateSides } from "../../../pages/services/sides";
 
 type Items = {
   id: number;
@@ -60,47 +60,50 @@ export default function CrudUpdate() {
     if (alignment == "drink") {
       return drinks.map((drink) => (
         <MenuItem key={drink.id} value={drink.id}>
-          {drink.name}
+          {drink.id + '-' + drink.name}
         </MenuItem>
       ))
     } else if (alignment == "side") {
       return sides.map((side) => (
         <MenuItem key={side.id} value={side.id}>
-          {side.name}
+          {+side.id + '-' + side.name}
         </MenuItem>
       ))
     } else {
       return foods.map((food) => (
         <MenuItem key={food.id} value={food.id}>
-          {food.name}
+          {food.id + '-' + food.name}
         </MenuItem>
       ))
     }
   }
 
   async function updateItems() {
-    if (alignment == "food") {
-      updateFoods(selectedFood, name, desc, price, checked);
+    if (alignment == "food" && selectedFood != undefined) {
+      updateFoods(selectedFood as number, name, desc, price, checked);
       setName("")
       setDesc("")
       setPrice(0)
       setChecked(false)
-      fetchFoods();
-    } else if (alignment == "drink"){
-      updateDrinks(selectedDrink, name, desc, price, size);
+      setFoods(await fetchFoods());
+    } else if (alignment == "drink" && selectedDrink != undefined){
+      updateDrinks(selectedDrink as number, name, desc, price, size);
       setName("")
       setDesc("")
       setPrice(0)
       setSize("")
-      fetchDrinks();
-    } else if (alignment == "side"){
-      updateSides(selectedSide, desc, price, checked);
+      setDrinks(await fetchDrinks());
+    } else if (alignment == "side" && selectedSide != undefined){
+      updateSides(selectedSide as number, name, desc, price, checked);
       setName("")
       setDesc("")
       setPrice(0)
       setChecked(false)
-      fetchSides();
+      setSides(await fetchSides());
     }
+    setSelectedFood(undefined);
+    setSelectedDrink(undefined);
+    setSelectedSide(undefined);
   }
 
   useEffect(() => {

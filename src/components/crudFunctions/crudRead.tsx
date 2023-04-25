@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TextField,
   Table,
@@ -12,10 +12,35 @@ import {
   Grid,
 } from "@mui/material";
 import ToggleButtons from "../toggleButtons";
+import { fetchFoods } from "../../../pages/services/foods";
+import { fetchDrinks } from "../../../pages/services/drinks";
+import { fetchSides } from "../../../pages/services/sides";
+
+type Items = {
+  id: number;
+  name: string;
+  desc: string;
+  price: number;
+}
 
 export default function CrudRead() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("0");
   const [alignment, setAlignment] = useState("food");
+  const [foods, setFoods] = useState<Items[]>([]);
+  const [drinks, setDrinks] = useState<Items[]>([]);
+  const [sides, setSides] = useState<Items[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const foodsData = await fetchFoods();
+      const drinksData = await fetchDrinks();
+      const sidesData = await fetchSides();
+      setFoods(foodsData);
+      setDrinks(drinksData);
+      setSides(sidesData);
+    }
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -44,7 +69,7 @@ export default function CrudRead() {
           <TextField
             label="Search ID"
             value={searchQuery}
-            onChange={()=>{}}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -58,12 +83,45 @@ export default function CrudRead() {
               </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow>
-                  <TableCell>1</TableCell>
-                  <TableCell>Pizza</TableCell>
-                  <TableCell>Le Pizza de Hoe</TableCell>
-                  <TableCell>$69.420</TableCell>
-                </TableRow>
+            {alignment === "food" &&
+              foods
+                .filter((item) =>
+                  item.id.toString().includes(searchQuery.toLowerCase())
+                )
+                .map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.id}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.desc}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                  </TableRow>
+                ))}
+            {alignment === "drink" &&
+              drinks
+                .filter((item) =>
+                  item.id.toString().includes(searchQuery.toLowerCase())
+                )
+                .map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.id}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.desc}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                  </TableRow>
+                ))}
+            {alignment === "side" &&
+              sides
+                .filter((item) =>
+                  item.id.toString().includes(searchQuery.toLowerCase())
+                )
+                .map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.id}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.desc}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </Grid>

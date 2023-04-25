@@ -7,7 +7,7 @@ DECLARE
   side_price DECIMAL := side_input ->> 'price';
   side_isVegan BOOLEAN := side_input ->> 'isVegan';
 BEGIN
-  INSERT INTO "Side" ("name", "desc", "price", "isVegan")
+  INSERT INTO "Sides" ("name", "desc", "price", "isVegan")
   VALUES (side_name, side_desc, side_price, side_isVegan);
 END;
 $$ LANGUAGE plpgsql;

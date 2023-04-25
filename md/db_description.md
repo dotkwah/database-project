@@ -16,7 +16,7 @@ USING PostgreSQL
 - price DECIMAL
 - size TEXT
 
-3. Side Table
+3. Sidess Table
 - id SERIAL (Primary Key)
 - name TEXT
 - desc TEXT
@@ -39,7 +39,7 @@ The foreign key constraints are:
 
 - The Order table's FoodID column references the Food table's id column, ensuring that every Order's FoodID matches an existing food item.
 - The Order table's DrinkID column references the Drink table's id column, ensuring that every Order's DrinkID matches an existing drink item.
-- The Order table's SideID column references the Side table's id column, ensuring that every Order's SideID matches an existing side item.
+- The Order table's SideID column references the Sides table's id column, ensuring that every Order's SideID matches an existing side item.
 
 ## SAMPLE DATA
 

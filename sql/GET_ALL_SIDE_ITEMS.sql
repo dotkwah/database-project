@@ -4,7 +4,7 @@ DECLARE
   side_items JSON;
 BEGIN
   SELECT json_agg(t)
-  FROM (SELECT * FROM "Side") t
+  FROM (SELECT * FROM "Sides") t
   INTO side_items;
   
   RETURN side_items;

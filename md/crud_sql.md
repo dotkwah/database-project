@@ -167,7 +167,7 @@ DECLARE
   side_price DECIMAL := side_input ->> 'price';
   side_isVegan BOOLEAN := side_input ->> 'isVegan';
 BEGIN
-  INSERT INTO "Side" ("name", "desc", "price", "isVegan")
+  INSERT INTO "Sides" ("name", "desc", "price", "isVegan")
   VALUES (side_name, side_desc, side_price, side_isVegan);
 END;
 $$ LANGUAGE plpgsql;
@@ -184,7 +184,7 @@ DECLARE
   side_price DECIMAL := side_input ->> 'price';
   side_isVegan BOOLEAN := side_input ->> 'isVegan';
 BEGIN
-  UPDATE "Side"
+  UPDATE "Sides"
   SET "name" = side_name, "desc" = side_desc, "price" = side_price, "isVegan" = side_isVegan
   WHERE "id" = side_id;
 END;
@@ -196,7 +196,7 @@ CREATE OR REPLACE FUNCTION delete_side_item(
   side_id INTEGER
 ) RETURNS VOID AS $$
 BEGIN
-  DELETE FROM "Side"
+  DELETE FROM "Sides"
   WHERE "id" = side_id;
 END;
 $$ LANGUAGE plpgsql;
@@ -209,7 +209,7 @@ DECLARE
   side_items JSON;
 BEGIN
   SELECT json_agg(t)
-  FROM (SELECT * FROM "Side") t
+  FROM (SELECT * FROM "Sides") t
   INTO side_items;
   
   RETURN side_items;
@@ -225,7 +225,7 @@ DECLARE
   side_item JSON;
 BEGIN
   SELECT row_to_json(t)
-  FROM (SELECT * FROM "Side" WHERE "id" = side_id) t
+  FROM (SELECT * FROM "Sides" WHERE "id" = side_id) t
   INTO side_item;
   
   RETURN side_item;

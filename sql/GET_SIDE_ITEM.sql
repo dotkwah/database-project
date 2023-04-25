@@ -5,7 +5,7 @@ DECLARE
   side_item JSON;
 BEGIN
   SELECT row_to_json(t)
-  FROM (SELECT * FROM "Side" WHERE "id" = side_id) t
+  FROM (SELECT * FROM "Sides" WHERE "id" = side_id) t
   INTO side_item;
   
   RETURN side_item;

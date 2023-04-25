@@ -14,7 +14,7 @@ VALUES ('Coca-Cola', 'Refreshing Coca-Cola soda', 1.99, '12 oz'),
        ('Lemonade', 'Freshly squeezed lemonade', 2.99, '12 oz'),
        ('Iced Tea', 'Sweet or unsweetened iced tea', 2.99, '12 oz');
 
-INSERT INTO "Side" ("name", "desc", "price", "isVegan")
+INSERT INTO "Sides" ("name", "desc", "price", "isVegan")
 VALUES ('Mashed Potatoes', 'Creamy mashed potatoes', 3.99, TRUE),
        ('Macaroni and Cheese', 'Creamy macaroni and cheese', 3.99, FALSE),
        ('Corn', 'Sweet corn', 2.99, TRUE),

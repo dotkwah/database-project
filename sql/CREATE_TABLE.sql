@@ -28,8 +28,8 @@ CREATE TABLE "Order" (
   "orderAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "foodId" INTEGER NOT NULL,
   "drinkId" INTEGER NOT NULL,
-  "sideId" INTEGER NOT NULL,
+  "sidesId" INTEGER NOT NULL,
   FOREIGN KEY ("foodId") REFERENCES "Food"("id"),
   FOREIGN KEY ("drinkId") REFERENCES "Drink"("id"),
-  FOREIGN KEY ("sideId") REFERENCES "Side"("id")
+  FOREIGN KEY ("sidesId") REFERENCES "Side"("id")
 );

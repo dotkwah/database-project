@@ -20,7 +20,7 @@ VALUES ('Mashed Potatoes', 'Creamy mashed potatoes', 3.99, TRUE),
        ('Corn', 'Sweet corn', 2.99, TRUE),
        ('Green Beans', 'Fresh green beans', 2.99, TRUE);
 
-INSERT INTO "Order" ("customer", "foodId", "drinkId", "sideId")
+INSERT INTO "Order" ("customer", "foodId", "drinkId", "sidesId")
 VALUES ('John Doe', 1, 1, 1),
        ('Jane Doe', 2, 2, 2),
        ('John Doe', 3, 3, 3),

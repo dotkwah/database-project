@@ -1,4 +1,3 @@
-```
 CREATE TABLE "Food" (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
@@ -34,5 +33,3 @@ CREATE TABLE "Order" (
   FOREIGN KEY ("drinkId") REFERENCES "Drink"("id"),
   FOREIGN KEY ("sidesId") REFERENCES "Side"("id")
 );
-
-```

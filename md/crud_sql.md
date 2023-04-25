@@ -9,9 +9,10 @@ DECLARE
   food_name TEXT := food_input ->> 'name';
   food_desc TEXT := food_input ->> 'desc';
   food_price DECIMAL := food_input ->> 'price';
+  food_isGluten BOOLEAN := food_input ->> 'isGluten';
 BEGIN
-  INSERT INTO "Food" ("name", "desc", "price")
-  VALUES (food_name, food_desc, food_price);
+  INSERT INTO "Food" ("name", "desc", "price", "isGluten")
+  VALUES (food_name, food_desc, food_price, food_isGluten);
 END;
 $$ LANGUAGE plpgsql;
 ```
@@ -25,9 +26,10 @@ DECLARE
   food_name TEXT := food_input ->> 'name';
   food_desc TEXT := food_input ->> 'desc';
   food_price DECIMAL := food_input ->> 'price';
+  food_isGluten BOOLEAN := food_input ->> 'isGluten';
 BEGIN
   UPDATE "Food"
-  SET "name" = food_name, "desc" = food_desc, "price" = food_price
+  SET "name" = food_name, "desc" = food_desc, "price" = food_price, "isGluten" = food_isGluten
   WHERE "id" = food_id;
 END;
 $$ LANGUAGE plpgsql;
@@ -64,6 +66,17 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
+```
+CREATE OR REPLACE FUNCTION delete_food_item(
+  food_id INTEGER
+) RETURNS VOID AS $$
+BEGIN
+  DELETE FROM "Food"
+  WHERE "id" = food_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
 ## DRINK CRUD
 
 ```
@@ -74,9 +87,10 @@ DECLARE
   drink_name TEXT := drink_input ->> 'name';
   drink_desc TEXT := drink_input ->> 'desc';
   drink_price DECIMAL := drink_input ->> 'price';
+  drink_size TEXT := drink_input ->> 'size';
 BEGIN
-  INSERT INTO "Drink" ("name", "desc", "price")
-  VALUES (drink_name, drink_desc, drink_price);
+  INSERT INTO "Drink" ("name", "desc", "price", "size")
+  VALUES (drink_name, drink_desc, drink_price, drink_size);
 END;
 $$ LANGUAGE plpgsql;
 ```
@@ -90,9 +104,10 @@ DECLARE
   drink_name TEXT := drink_input ->> 'name';
   drink_desc TEXT := drink_input ->> 'desc';
   drink_price DECIMAL := drink_input ->> 'price';
+  drink_size TEXT := drink_input ->> 'size';
 BEGIN
   UPDATE "Drink"
-  SET "name" = drink_name, "desc" = drink_desc, "price" = drink_price
+  SET "name" = drink_name, "desc" = drink_desc, "price" = drink_price, "size" = drink_size
   WHERE "id" = drink_id;
 END;
 $$ LANGUAGE plpgsql;
@@ -110,12 +125,16 @@ $$ LANGUAGE plpgsql;
 ```
 
 ```
-CREATE OR REPLACE FUNCTION delete_drink_item(
-  drink_id INTEGER
-) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION get_all_drink_items()
+RETURNS JSON AS $$
+DECLARE
+  drink_items JSON;
 BEGIN
-  DELETE FROM "Drink"
-  WHERE "id" = drink_id;
+  SELECT json_agg(t)
+  FROM (SELECT * FROM "Drink") t
+  INTO drink_items;
+  
+  RETURN drink_items;
 END;
 $$ LANGUAGE plpgsql;
 ```
@@ -136,6 +155,84 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
+## SIDE CRUD
+  
+  ```
+CREATE OR REPLACE FUNCTION create_side_item(
+  side_input JSON
+) RETURNS VOID AS $$
+DECLARE
+  side_name TEXT := side_input ->> 'name';
+  side_desc TEXT := side_input ->> 'desc';
+  side_price DECIMAL := side_input ->> 'price';
+  side_isVegan BOOLEAN := side_input ->> 'isVegan';
+BEGIN
+  INSERT INTO "Sides" ("name", "desc", "price", "isVegan")
+  VALUES (side_name, side_desc, side_price, side_isVegan);
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```
+CREATE OR REPLACE FUNCTION update_side_item(
+  side_id INTEGER,
+  side_input JSON
+) RETURNS VOID AS $$
+DECLARE
+  side_name TEXT := side_input ->> 'name';
+  side_desc TEXT := side_input ->> 'desc';
+  side_price DECIMAL := side_input ->> 'price';
+  side_isVegan BOOLEAN := side_input ->> 'isVegan';
+BEGIN
+  UPDATE "Sides"
+  SET "name" = side_name, "desc" = side_desc, "price" = side_price, "isVegan" = side_isVegan
+  WHERE "id" = side_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```
+CREATE OR REPLACE FUNCTION delete_side_item(
+  side_id INTEGER
+) RETURNS VOID AS $$
+BEGIN
+  DELETE FROM "Sides"
+  WHERE "id" = side_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```
+CREATE OR REPLACE FUNCTION get_all_side_items()
+RETURNS JSON AS $$
+DECLARE
+  side_items JSON;
+BEGIN
+  SELECT json_agg(t)
+  FROM (SELECT * FROM "Sides") t
+  INTO side_items;
+  
+  RETURN side_items;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```
+CREATE OR REPLACE FUNCTION get_side_item(
+  side_id INTEGER
+) RETURNS JSON AS $$
+DECLARE
+  side_item JSON;
+BEGIN
+  SELECT row_to_json(t)
+  FROM (SELECT * FROM "Sides" WHERE "id" = side_id) t
+  INTO side_item;
+  
+  RETURN side_item;
+END;
+$$ LANGUAGE plpgsql;
+```
+
 ## ORDER CRUD
 
 ```
@@ -143,149 +240,29 @@ CREATE OR REPLACE FUNCTION create_order(
   order_input JSON
 ) RETURNS VOID AS $$
 DECLARE
-  customer_name TEXT := order_input ->> 'customer';
-  order_price DECIMAL := order_input ->> 'price';
-  order_time TIMESTAMP := order_input ->> 'orderAt';
+  order_customer TEXT := order_input ->> 'customer';
+  order_food_id INTEGER := order_input ->> 'food_id';
+  order_drink_id INTEGER := order_input ->> 'drink_id';
+  order_side_id INTEGER := order_input ->> 'side_id';
+  order_order_at DECIMAL := order_input ->> 'order_at';
 BEGIN
-  INSERT INTO "Order" ("customer", "price", "orderAt")
-  VALUES (customer_name, order_price, order_time);
+  INSERT INTO "Order" ("customer", "foodId", "drinkId", "sidesId", "orderAt")
+  VALUES (order_customer, order_food_id, order_drink_id, order_side_id, order_order_at);
 END;
 $$ LANGUAGE plpgsql;
 ```
 
 ```
-CREATE OR REPLACE FUNCTION update_order(
-  order_id INTEGER,
-  order_input JSON
-) RETURNS VOID AS $$
-DECLARE
-  customer_name TEXT := order_input ->> 'customer';
-  order_price DECIMAL := order_input ->> 'price';
-  order_time TIMESTAMP := order_input ->> 'orderAt';
-BEGIN
-  UPDATE "Order"
-  SET "customer" = customer_name, "price" = order_price, "orderAt" = order_time
-  WHERE "id" = order_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION delete_order(
-  order_id INTEGER
-) RETURNS VOID AS $$
-BEGIN
-  DELETE FROM "Order"
-  WHERE "id" = order_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION get_all_orders() 
+CREATE OR REPLACE FUNCTION get_all_orders()
 RETURNS JSON AS $$
 DECLARE
-  order_items JSON;
+  orders JSON;
 BEGIN
   SELECT json_agg(t)
   FROM (SELECT * FROM "Order") t
-  INTO order_items;
+  INTO orders;
   
-  RETURN order_items;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION get_order(
-  order_id INTEGER
-) RETURNS JSON AS $$
-DECLARE
-  order_item JSON;
-BEGIN
-  SELECT row_to_json(t)
-  FROM (SELECT * FROM "Order" WHERE "id" = order_id) t
-  INTO order_item;
-  
-  RETURN order_item;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-## ORDERITEM CRUD
-
-```
-CREATE OR REPLACE FUNCTION create_order_item(
-  order_item_input JSON
-) RETURNS VOID AS $$
-DECLARE
-  food_id INTEGER := order_item_input ->> 'foodId';
-  drink_id INTEGER := order_item_input ->> 'drinkId';
-  order_id INTEGER := order_item_input ->> 'orderId';
-  quantity INTEGER := order_item_input ->> 'quantity';
-BEGIN
-  INSERT INTO "OrderItem" ("foodId", "drinkId", "orderId", "quantity")
-  VALUES (food_id, drink_id, order_id, quantity);
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION update_order_item(
-  order_item_id INTEGER,
-  order_item_input JSON
-) RETURNS VOID AS $$
-DECLARE
-  food_id INTEGER := order_item_input ->> 'foodId';
-  drink_id INTEGER := order_item_input ->> 'drinkId';
-  order_id INTEGER := order_item_input ->> 'orderId';
-  quantity INTEGER := order_item_input ->> 'quantity';
-BEGIN
-  UPDATE "OrderItem"
-  SET "foodId" = food_id, "drinkId" = drink_id, "orderId" = order_id, "quantity" = quantity
-  WHERE "id" = order_item_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION delete_order_item(
-  order_item_id INTEGER
-) RETURNS VOID AS $$
-BEGIN
-  DELETE FROM "OrderItem"
-  WHERE "id" = order_item_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION get_all_order_items() 
-RETURNS JSON AS $$
-DECLARE
-  order_item_list JSON;
-BEGIN
-  SELECT json_agg(t)
-  FROM (SELECT * FROM "OrderItem") t
-  INTO order_item_list;
-  
-  RETURN order_item_list;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```
-CREATE OR REPLACE FUNCTION get_order_item(
-  order_item_id INTEGER
-) RETURNS JSON AS $$
-DECLARE
-  order_item JSON;
-BEGIN
-  SELECT row_to_json(t)
-  FROM (SELECT * FROM "OrderItem" WHERE "id" = order_item_id) t
-  INTO order_item;
-  
-  RETURN order_item;
+  RETURN orders;
 END;
 $$ LANGUAGE plpgsql;
 ```

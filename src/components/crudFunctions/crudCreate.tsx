@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createFoods, fetchFoods } from "../../../pages/services/foods";
 import { createDrinks, fetchDrinks } from "../../../pages/services/drinks";
 import { createSides, fetchSides } from "../../../pages/services/sides";
-import { createOrders } from "../../../pages/services/orders";
+import { createOrders, fetchOrders } from "../../../pages/services/orders";
 
 type Items = {
   id: number;
@@ -40,22 +40,23 @@ export default function CrudCreate() {
       setDesc("")
       setPrice(0)
       setChecked(false)
-      fetchFoods();
+      setFoods(await fetchFoods());
     } else if (alignment == "drink"){
       createDrinks(name, desc, price, size);
       setName("")
       setDesc("")
       setPrice(0)
       setSize("")
-      fetchDrinks();
+      setDrinks(await fetchDrinks());
     } else if (alignment == "side"){
       createSides(name, desc, price, checked);
       setName("")
       setDesc("")
       setPrice(0)
       setChecked(false)
-      fetchSides();
+      setSides(await fetchSides());
     }
+    
   }
 
   async function createOrder() {
@@ -65,6 +66,7 @@ export default function CrudCreate() {
       setSelectedFood(undefined);
       setSelectedDrink(undefined);
       setSelectedSide(undefined);
+      fetchOrders();
     }
   }
 

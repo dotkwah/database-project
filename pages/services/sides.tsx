@@ -18,3 +18,10 @@ export async function deleteSides(id: number) {
     method: 'DELETE',
   });
 }
+
+export async function updateSides(id: number, name: string, desc: string, price: number, checked: boolean) {
+  const data = await fetch('/api/sides?id=' + id, {
+    method: 'PUT',
+    body: JSON.stringify({name, desc, price, isVegan: checked}),
+  });
+}

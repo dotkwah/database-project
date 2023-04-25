@@ -18,3 +18,10 @@ export async function deleteFoods(id: number) {
     method: 'DELETE',
   });
 }
+
+export async function updateFoods(id: number, desc: string, price: number, checked: boolean) {
+  const data = await fetch('/api/foods?id=' + id, {
+    method: 'PUT',
+    body: JSON.stringify({name, desc, price, isGluten: checked}),
+  });
+}

@@ -18,3 +18,10 @@ export async function deleteDrinks(id: number) {
     method: 'DELETE',
   });
 }
+
+export async function updateDrinks(id: number, name: string, desc: string, price: number, size: string) {
+  const data = await fetch('/api/drinks?id=' + id, {
+    method: 'PUT',
+    body: JSON.stringify({name, desc, price, size}),
+  });
+}

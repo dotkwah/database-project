@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../lib/prisma'
 
-type postProps = {
+type requestProps = {
   name: string;
   desc: string;
   size: string;
@@ -14,7 +14,7 @@ export default async function handler(
 ) {
     try {
       if (req.method === 'POST') {
-        const post: postProps = JSON.parse(req.body);
+        const post: requestProps = JSON.parse(req.body);
       try {
         const data = await prisma.drink.create({
           data: {
@@ -46,6 +46,25 @@ export default async function handler(
         res.status(200).json(result);
         return result;
       } catch (error) {
+        res.status(500).json({ error });
+      }
+    } else if (req.method === 'PUT') {
+        const updateId = Number(req.query.id);
+        const put: requestProps = JSON.parse(req.body);
+        try {
+          const data = await prisma.drink.update({
+            where: {
+              id: updateId,
+            },
+            data: {
+              name: put.name,
+              desc: put.desc,
+              size: put.size,
+              price: put.price,
+            },
+          })
+          res.status(200).json(data); 
+        } catch (error) {
         res.status(500).json({ error });
       }
     }

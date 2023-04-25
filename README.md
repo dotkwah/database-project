@@ -8,8 +8,7 @@
 
 ## Video Link
 
-### STILL NEEDS TO BE RECORDED
-[Youtube Video]()
+[Youtube Video](https://youtu.be/Cx9nqDERi1I)
 
 ## Getting Started
 

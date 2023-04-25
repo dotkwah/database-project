@@ -89,11 +89,11 @@ export default function TablesPreview() {
                     <Table sx={{ minWidth: 50 }} aria-label="simple table">
                         <TableHead>
                         <TableRow>
-                            <TableCell sx={{fontWeight: "bold"}}>name</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>id</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>desc</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>price</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>isGluten</TableCell>
+                            <TableCell style={{ width: "10%" }} sx={{fontWeight: "bold"}}>id</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>name</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>desc</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>isGluten</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>price</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -102,13 +102,13 @@ export default function TablesPreview() {
                             key={row.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell style={{ width: "10%" }}>{row.id ?? ""}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right" component="th" scope="row">
                                     {row.name ?? ""}
                                 </TableCell>
-                                <TableCell align="right">{row.id ?? ""}</TableCell>
-                                <TableCell align="right">{row.desc ?? ""}</TableCell>
-                                <TableCell align="right">{row.price ? `$ ${row.price}` : ""}</TableCell>
-                                <TableCell align="right">{row.isGluten.toString()}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right">{row.desc ?? ""}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right">{row.isGluten.toString()}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right">{row.price ? `$ ${row.price}` : ""}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
@@ -121,11 +121,11 @@ export default function TablesPreview() {
                     <Table sx={{ minWidth: 50 }} aria-label="simple table">
                         <TableHead>
                         <TableRow>
-                            <TableCell sx={{fontWeight: "bold"}}>name</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>id</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>desc</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>price</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>size</TableCell>
+                            <TableCell style={{ width: "10%" }} sx={{fontWeight: "bold"}}>id</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>name</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>desc</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>size</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>price</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -134,13 +134,13 @@ export default function TablesPreview() {
                             key={row.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell style={{ width: "10%" }}>{row.id ?? ""}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right" component="th" scope="row">
                                     {row.name ?? ""}
                                 </TableCell>
-                                <TableCell align="right">{row.id ?? ""}</TableCell>
-                                <TableCell align="right">{row.desc ?? ""}</TableCell>
-                                <TableCell align="right">{row.price ? `$ ${row.price}` : ""}</TableCell>
-                                <TableCell align="right">{row.size ?? ""}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right">{row.desc ?? ""}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right">{row.size ?? ""}</TableCell>
+                                <TableCell style={{ width: "20%" }} align="right">{row.price ? `$ ${row.price}` : ""}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
@@ -150,62 +150,62 @@ export default function TablesPreview() {
             <Box sx={{ my: 2}}>
                 <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Side</Typography>
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 50 }} aria-label="simple table">
-                        <TableHead>
+                <Table sx={{ minWidth: 50 }} aria-label="simple table">
+                    <TableHead>
                         <TableRow>
-                            <TableCell sx={{fontWeight: "bold"}}>id</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>name</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>desc</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>isVegan</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>price</TableCell>
+                        <TableCell style={{ width: "10%" }} sx={{ fontWeight: "bold" }}>id</TableCell>
+                        <TableCell style={{ width: "20%" }} align="right" sx={{ fontWeight: "bold" }}>name</TableCell>
+                        <TableCell style={{ width: "20%" }} align="right" sx={{ fontWeight: "bold" }}>desc</TableCell>
+                        <TableCell style={{ width: "20%" }} align="right" sx={{ fontWeight: "bold" }}>isVegan</TableCell>
+                        <TableCell style={{ width: "20%" }} align="right" sx={{ fontWeight: "bold" }}>price</TableCell>
                         </TableRow>
-                        </TableHead>
-                        <TableBody>
+                    </TableHead>
+                    <TableBody>
                         {sides.map((row) => (
-                            <TableRow
+                        <TableRow
                             key={row.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">{row.id ?? ""}</TableCell>
-                                <TableCell align="right">{row.name ?? ""}</TableCell>
-                                <TableCell align="right">{row.desc ?? ""}</TableCell>
-                                <TableCell align="right">{row.isVegan.toString()}</TableCell>
-                                <TableCell align="right">{row.price ? `$ ${row.price}` : ""}</TableCell>
-                            </TableRow>
+                        >
+                            <TableCell style={{ width: "10%" }} component="th" scope="row">{row.id ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.name ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.desc ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.isVegan.toString()}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.price ? `$ ${row.price}` : ""}</TableCell>
+                        </TableRow>
                         ))}
-                        </TableBody>
-                    </Table>
+                    </TableBody>
+                </Table>
                 </TableContainer>
             </Box>
             <Box sx={{ my: 2}}>
                 <Typography variant="h6" sx={{ my: 2}} fontWeight={"bold"}>Order</Typography>
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 50 }} aria-label="simple table">
-                        <TableHead>
+                <Table sx={{ minWidth: 50 }} aria-label="simple table">
+                    <TableHead>
                         <TableRow>
-                            <TableCell sx={{fontWeight: "bold"}}>customer</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>id</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>foodId</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>drinkId</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>sidesId</TableCell>
-                            <TableCell align="right" sx={{fontWeight: "bold"}}>orderAt</TableCell>
+                        <TableCell style={{ width: "10%" }} sx={{fontWeight: "bold"}}>id</TableCell>
+                        <TableCell style={{ width: "20%" }} align="right" sx={{fontWeight: "bold"}}>customer</TableCell>
+                        <TableCell align="right" sx={{fontWeight: "bold"}}>foodId</TableCell>
+                        <TableCell align="right" sx={{fontWeight: "bold"}}>drinkId</TableCell>
+                        <TableCell align="right" sx={{fontWeight: "bold"}}>sidesId</TableCell>
+                        <TableCell align="right" sx={{fontWeight: "bold"}}>orderAt</TableCell>
                         </TableRow>
-                        </TableHead>
-                        <TableBody>
+                    </TableHead>
+                    <TableBody>
                         {orders.map((row) => (
-                            <TableRow
-                                key={row.customer}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">{row.customer ?? ""}</TableCell>
-                                <TableCell align="right">{row.id ?? ""}</TableCell>
-                                <TableCell align="right">{row.foodId ?? ""}</TableCell>
-                                <TableCell align="right">{row.drinkId ?? ""}</TableCell>
-                                <TableCell align="right">{row.sidesId ?? ""}</TableCell>
-                                <TableCell align="right">{row.orderAt ?? ""}</TableCell>
-                            </TableRow>
+                        <TableRow
+                            key={row.customer}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell style={{ width: "10%" }}>{row.id ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right" >{row.customer ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.foodId ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.drinkId ?? ""}</TableCell>
+                            <TableCell style={{ width: "20%" }} align="right">{row.sidesId ?? ""}</TableCell>
+                            <TableCell style={{ width: "10%" }} align="right">{row.orderAt ?? ""}</TableCell>
+                        </TableRow>
                         ))}
-                        </TableBody>
+                    </TableBody>
                     </Table>
                 </TableContainer>
             </Box>

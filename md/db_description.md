@@ -43,3 +43,10 @@ The foreign key constraints are:
 
 ## SAMPLE DATA
 
+### FOOD TABLE
+
+[food-table-image](food-table.png)
+[drink-table-image](drink-table.png)
+[sides-table-image](sides-table.png)
+[order-table-image](order-table.png)
+

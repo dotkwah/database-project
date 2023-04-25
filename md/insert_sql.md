@@ -18,7 +18,8 @@ INSERT INTO "Sides" ("name", "desc", "price", "isVegan")
 VALUES ('Mashed Potatoes', 'Creamy mashed potatoes', 3.99, TRUE),
        ('Macaroni and Cheese', 'Creamy macaroni and cheese', 3.99, FALSE),
        ('Corn', 'Sweet corn', 2.99, TRUE),
-       ('Green Beans', 'Fresh green beans', 2.99, TRUE);
+       ('Green Beans', 'Fresh green beans', 2.99, TRUE),
+       ('Baked Potato', 'Baked potato with butter and sour cream', 3.99, TRUE);
 
 INSERT INTO "Order" ("customer", "foodId", "drinkId", "sidesId")
 VALUES ('John Doe', 1, 1, 1),

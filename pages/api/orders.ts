@@ -28,7 +28,15 @@ export default async function handler(
       } catch (error) {
         res.status(500).json({ error });
       }
-    } 
+    }  else if (req.method === 'GET') {
+    try {
+      const result = await prisma.order.findMany();
+      res.status(200).json(result);
+      return result;
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
   } catch (error) {
     res.status(500).json('Something went wrong!');
   }

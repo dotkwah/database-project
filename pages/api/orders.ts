@@ -36,6 +36,19 @@ export default async function handler(
     } catch (error) {
       res.status(500).json({ error });
     }
+  } else if (req.method === 'DELETE') {
+    try {
+      const deleteId = Number(req.query.id);
+      const result = await prisma.order.delete({
+        where: {
+          id: deleteId,
+        },
+      });
+      res.status(200).json(result);
+      return result;
+    } catch (error) {
+      res.status(500).json({ error });
+    }
   }
   } catch (error) {
     res.status(500).json('Something went wrong!');

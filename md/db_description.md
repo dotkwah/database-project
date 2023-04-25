@@ -16,7 +16,7 @@ USING PostgreSQL
 - price DECIMAL
 - size TEXT
 
-3. Sidess Table
+3. Sides Table
 - id SERIAL (Primary Key)
 - name TEXT
 - desc TEXT
@@ -27,7 +27,7 @@ USING PostgreSQL
 - id SERIAL (Primary Key)
 - customer TEXT
 - orderAt DATE (Default Now)
-- orderId INT (Foreign Key references Order.OrderID)
+- sidesId INT (Foreign Key references Order.SideID)
 - foodId INT (Foreign Key references Food.FoodID)
 - drinkId INT (Foreign Key references Drink.DrinkID)
 

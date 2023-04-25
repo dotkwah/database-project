@@ -6,11 +6,13 @@ import {
 type ToggleButtonsProps = {
   alignment: string;
   setAlignment: (value: string) => void;
+  isDelete?: boolean;
 };
 
 export default function ToggleButtons({
   alignment,
   setAlignment,
+  isDelete
 }: ToggleButtonsProps) {
 
   const handleChange = (
@@ -28,6 +30,7 @@ export default function ToggleButtons({
       onChange={handleChange}
       aria-label="Platform"
     >
+      { isDelete ? <ToggleButton value="order">Order</ToggleButton> : <></> }
       <ToggleButton value="food">Food</ToggleButton>
       <ToggleButton value="drink">Drink</ToggleButton>
       <ToggleButton value="side">Side</ToggleButton>

@@ -12,3 +12,9 @@ export async function fetchOrders() {
   const data = await res.json();
   return data;
 }
+
+export async function deleteOrder(id: number) {
+  const data = await fetch('/api/orders/?id=' + id, {
+    method: 'DELETE',
+  });
+}

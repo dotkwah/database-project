@@ -11,9 +11,10 @@ import ToggleButtons from "../toggleButtons";
 import { deleteFoods } from "../../../pages/services/foods";
 import { deleteDrinks } from "../../../pages/services/drinks";
 import { deleteSides } from "../../../pages/services/sides";
+import { deleteOrder } from "../../../pages/services/orders";
 
 export default function CrudDelete() {
-  const [alignment, setAlignment] = useState('food');
+  const [alignment, setAlignment] = useState('order');
   const [id, setId] = useState<number>();
 
   async function deleteItems() {
@@ -30,6 +31,11 @@ export default function CrudDelete() {
     } else if (alignment == "side"){
       if (id !== undefined) {
         deleteSides(id)
+        setId(0)
+      }
+    } else if (alignment == "order"){
+      if (id !== undefined) {
+        deleteOrder(id)
         setId(0)
       }
     }
@@ -56,6 +62,7 @@ export default function CrudDelete() {
             <ToggleButtons
                 alignment={alignment}
                 setAlignment={setAlignment}
+                isDelete={true}
             />
             </Grid>
             <Grid item xs={12}>
